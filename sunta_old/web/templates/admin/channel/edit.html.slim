@@ -1,0 +1,4 @@
+div.x_panel
+  div.x_title Edit channel
+  = render "form.html", changeset: @changeset, action: channel_path(@conn, :update, @channel)
+  = link "Back", to: channel_path(@conn, :index)

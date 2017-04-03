@@ -1,0 +1,49 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "",
+        "version": "0.0",
+        "title": "API"
+    },
+    "host": "",
+    "basePath": "/api",
+    "tags": [
+        {
+            "name": "test",
+            "description": "Test"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/test": {
+            "get": {
+                "tags": [
+                    "test"
+                ],
+                "summary": "TEST",
+                "description": "",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "System Error"
+                    }
+                }
+            }
+        }
+    }
+}

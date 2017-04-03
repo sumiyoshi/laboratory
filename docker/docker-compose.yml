@@ -1,0 +1,29 @@
+postgres-data:
+  image: busybox
+  volumes:
+      - /var/lib/postgresql/data
+  container_name: postgres-datastore
+
+db:
+  image: postgres:latest
+  environment:
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+  ports:
+    - 5432:5432
+  container_name: postgres-db
+  volumes_from:
+      - postgres-data
+
+web:
+  build: .
+  command: sh -c "mix phoenix.server"
+  ports:
+    - 4000:4000
+  environment: &ENV
+    VIRTUAL_PORT: 4000
+  container_name: phoenix-web
+  volumes:
+      - ./:/usr/local/src/phoenix/app
+  links:
+    - db:db

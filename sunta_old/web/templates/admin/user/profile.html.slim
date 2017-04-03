@@ -1,0 +1,3 @@
+div.x_panel
+  div.x_title Profile
+  = render "form.html", admin: false, changeset: @changeset, action: user_path(@conn, :profile_edit)

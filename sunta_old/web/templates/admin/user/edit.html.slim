@@ -1,0 +1,4 @@
+div.x_panel
+  div.x_title Edit user
+  = render "form.html", admin: true, changeset: @changeset, action: user_path(@conn, :update, @user)
+  = link "Back", to: user_path(@conn, :index)

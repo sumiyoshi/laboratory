@@ -1,0 +1,27 @@
+doctype html
+html lang="en"
+  head
+    meta charset="utf-8"
+    meta http-equiv="X-UA-Compatible" content="IE=edge"
+    meta name="viewport" content="width=device-width, initial-scale=1"
+    meta name="description" content=""
+    meta name="author" content=""
+    title Admin Sunta!
+
+    //Bootstrap
+    link href="#{static_path(@conn, "/vendor/bootstrap/dist/css/bootstrap.min.css")}" rel="stylesheet"
+    //Font Awesome
+    link href="#{static_path(@conn, "/vendor/font-awesome/css/font-awesome.min.css")}" rel="stylesheet"
+    //Animate.css
+    link href="#{static_path(@conn, "/vendor/gentelella/css/animate.min.css")}" rel="stylesheet"
+    //Custom Theme Style
+    link href="#{static_path(@conn, "/vendor/gentelella/css/custom.min.css")}" rel="stylesheet"
+    link rel="stylesheet" href="#{static_path(@conn, "/css/sunta.css")}"
+
+  body.login
+    div
+      div.login_wrapper
+        div class="animate form login_form"
+          = if get_flash(@conn, :error) do
+            p.alert.alert-danger role="alert" = get_flash(@conn, :error)
+          = render @view_module, @view_template, assigns

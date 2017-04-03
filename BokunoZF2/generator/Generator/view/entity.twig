@@ -1,0 +1,63 @@
+<?php
+
+{% if data.table.category != '' %}
+namespace Component\Data\Entity\{{ data.table.category }};
+{% else %}
+namespace Component\Data\Entity;
+{% endif %}
+
+use Component\Data\Base\EntityInterface;
+
+/**
+ * Class {{ data.table.php_name }}Entity
+ *
+{% if data.table.category != '' %}
+ * @package Component\Data\Entity\{{ data.table.category }};
+{% else %}
+ * @package Component\Data\Entity
+{% endif %}
+ */
+class {{ data.table.php_name }}Entity implements EntityInterface
+{
+
+{% for items in data.columns %}
+	const COL_{{ items.name|upper }} = '{{ items.name }}';
+{% endfor %}
+
+	public $_entities = array(
+{% for items in data.columns %}
+		self::COL_{{items.name|upper}} => null,
+{% endfor %}
+    );
+
+    public $labels = array(
+{% for items in data.columns %}
+	    self::COL_{{items.name|upper}} => '{{items.ja_name}}',
+{% endfor %}
+    );
+
+    /**
+     * @return string
+     */
+    public function getTableName()
+    {
+        return '{{data.table.name}}';
+    }
+
+    /**
+     * @return array
+     */
+    public function getPrimaryKeys()
+    {
+{% if data.primary_key|length > 0 %}
+        return array(
+{% for key in data.primary_key %}
+            '{{ key }}',
+{% endfor %}
+        );
+{% else %}
+        return null;
+{% endif %}
+    }
+
+}

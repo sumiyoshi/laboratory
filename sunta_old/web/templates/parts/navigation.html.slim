@@ -1,0 +1,27 @@
+nav aria-label="Page navigation"
+  ul.pagination
+    = if @navigation.prev do
+      li.page-item
+        a.page-link href="#{get_user_navigation(@conn, @search_params, @navigation.prev)}"
+          span aria-hidden="true" &laquo;
+      = else
+        li.page-item.disabled
+          span.page-link
+            span aria-hidden="true" &laquo;
+
+    = for page <- @navigation.page_range do
+      = if page == @navigation.current_page do
+        li.page-item.active
+          span.page-link = page
+        = else
+          li.page-item
+            a.page-link href="#{get_user_navigation(@conn, @search_params, page)}" = page
+
+    = if @navigation.next do
+      li.page-item
+        a.page-link href="#{get_user_navigation(@conn, @search_params, @navigation.next)}"
+          span aria-hidden="true" &raquo;
+      = else
+        li.page-item.disabled
+          span.page-link
+            span aria-hidden="true" &raquo;

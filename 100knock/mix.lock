@@ -1,0 +1,3 @@
+%{"exkanji": {:hex, :exkanji, "0.3.1", "f00e3c8e6055b8a965d3b630bf02c7cc02ee7ce600267cfc99f8548a16c9c037", [:mix], [{:exromaji, "~> 0.4", [hex: :exromaji, optional: false]}]},
+  "exromaji": {:hex, :exromaji, "0.4.3", "4bad66a60310222c1014112d73a64a917a870839ce34a310683f2a3ff3c46378", [:mix], []},
+  "poison": {:hex, :poison, "1.5.2", "560bdfb7449e3ddd23a096929fb9fc2122f709bcc758b2d5d5a5c7d0ea848910", [:mix], []}}

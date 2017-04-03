@@ -1,0 +1,38 @@
+<?php
+
+return array(
+    'routes' => array(
+{% for key,item in _routes %}
+        '{{ key }}' => array(
+            'type' => '{{ item.type }}',
+            'options' => array(
+                'route' => '{{ item.options.route }}',
+                'constraints' => {% if item.options.constraints != '' %}'{{ item.options.constraints }}'{% else %}$constraints{% endif %},
+                'defaults' => array(
+                    'controller' => '{{ item.options.defaults.controller }}',
+                    'action' => '{{ item.options.defaults.action }}',
+                ),
+            ),
+        ),
+{% endfor %}
+{% for key,item in config.routes %}
+        '{{ key }}' => array(
+            'type' => 'Segment',
+            'options' => array(
+                'route' => '{% if  default_module != _module  %}/{{ _module }}{% endif %}/{{ _controller }}[/:action[/:id]]',
+                'constraints' => $constraints,
+                'defaults' => array(
+                    'controller' => '{{ item.options.defaults.controller }}',
+                    'action' => 'index',
+                ),
+            ),
+        ),
+{% endfor %}
+    ),
+    'controllers' => array(
+{% for key,item in config.controllers %}
+        '{{ key }}' => '{{ item }}',
+{% endfor %}
+    )
+);
+

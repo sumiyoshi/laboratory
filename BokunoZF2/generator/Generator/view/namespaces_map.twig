@@ -1,0 +1,9 @@
+<?php
+
+$dir = dirname(dirname(__FILE__));
+
+return array(
+{% for item in names %}
+    '{{ item }}' => $dir . '/src/' . '{{ item }}',
+{% endfor %}
+);

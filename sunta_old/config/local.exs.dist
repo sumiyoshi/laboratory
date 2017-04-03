@@ -1,0 +1,8 @@
+use Mix.Config
+
+# Configure your database
+config :sunta, Sunta.Repo,
+  username: "root",
+  password: "",
+  hostname: "localhost"
+

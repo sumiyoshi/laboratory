@@ -1,0 +1,21 @@
+{
+    "name": "ZF2",
+    "description": "ZF2",
+    "keywords": [
+        "framework",
+        "zf2"
+    ],
+    "autoload": {
+      "psr-0": {
+        "Boot": "./boot",
+        "Generator": "./generator"
+      }
+    },
+    "homepage": "http://framework.zend.com/",
+    "require": {
+        "php": ">=5.4",
+        "zendframework/zendframework": "*",
+        "zf-commons/zfc-twig": "dev-master",
+        "phpunit/phpunit": "*"
+    }
+}

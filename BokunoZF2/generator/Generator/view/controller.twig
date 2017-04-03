@@ -1,0 +1,18 @@
+<?php
+
+namespace {{ module }}\Controller;
+
+use Component\Library\Core\AbstractController;
+
+/**
+ * Class {{ controller }}Controller
+ *
+ * @package {{ module }}\Controller
+ */
+class {{ controller }}Controller extends AbstractController
+{
+    public function indexAction()
+    {
+        return $this->viewModel('{{ controller }}ViewModel');
+    }
+}

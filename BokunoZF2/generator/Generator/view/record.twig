@@ -1,0 +1,61 @@
+<?php
+
+{% if data.table.category != '' %}
+namespace Component\Data\Model\{{data.table.category}};
+{% else %}
+namespace Component\Data\Model;
+{% endif %}
+
+use Component\Data\Base\AbstractModel;
+use Component\Library\Core\ValidatorOptions;
+
+/**
+ * Class {{data.table.php_name}}Model
+ *
+{% for items in data.columns %}
+ * @property string ${{items.name}} {{items.ja_name}}
+{% endfor %}
+ *
+{% if data.table.category != '' %}
+ * @package Component\Data\Model\{{data.table.category}};
+{% else %}
+ * @package Component\Data\Model
+{% endif %}
+ */
+class {{data.table.php_name}}Model extends AbstractModel
+{
+
+    #region InputFilter
+
+    /**
+     * @param \Zend\InputFilter\InputFilter $inputFilter
+     * @param \Zend\InputFilter\Factory $factory
+     */
+    protected function addInputFilter($inputFilter, $factory)
+    {
+{% for items in data.columns %}
+        $inputFilter->add($factory->createInput(array(
+            'name' => '{{ items.name }}',
+            'required' => {% if items.notnull %}true{% else %}false{% endif %},
+            'validators' => array(
+{% if items.notnull %}
+                ValidatorOptions::notEmpty(),
+{% endif %}
+{% if items.size %}
+                ValidatorOptions::stringLength({{ items.size }}),
+{% endif %}
+{% if items.type == 'int' %}
+                ValidatorOptions::digits(),
+{% endif %}
+{% if items.type == 'datetime' %}
+                ValidatorOptions::date(),
+{% endif %}
+            ),
+        )));
+
+{% endfor %}
+    }
+
+    #endregion
+
+}

@@ -1,0 +1,23 @@
+<?php
+
+{% if data.table.category != '' %}
+namespace Component\Operation\{{ data.table.category }}\{{ data.table.php_name }};
+{% else %}
+namespace Component\Operation\{{ data.table.php_name }};
+{% endif %}
+
+use Component\Operation\Base\AbstractSaveOperation;
+
+/**
+ * Class SaveOperation
+ *
+{% if data.table.category != '' %}
+ * @package Component\Operation\{{ data.table.category }}\{{ data.table.name }};
+{% else %}
+ * @package Component\Operation\{{ data.table.php_name }};
+{% endif %}
+ */
+class SaveOperation extends AbstractSaveOperation
+{
+    protected $table_name = '{{ data.table.php_name }}';
+}
