@@ -2,42 +2,56 @@ defmodule BackLogApi do
 
   @backlog_api_url "https://%{space_name}.backlog.jp/api/v2/%{endpoint}?apiKey=%{api_key}"
 
-  @spec call(String.t, Atom.t) :: {Atom.t, Map.t}
-  def call(url, method) do
+  @type headers :: [{binary, binary}] | %{binary => binary}
+  @type body :: binary | {:form, [{atom, any}]} | {:file, binary}
+
+  @spec get(binary, headers, Keyword.t) :: {Atom.t, Map.t}
+  def get(url, headers \\ [], options \\ []) do
     url
-    |> do_request(method)
+    |> HTTPoison.get!(headers, options)
     |> do_response_decode
     |> do_cast_response
   end
 
-  @spec get_request_url(String.t) :: String.t
+  @spec put(binary, Map.t, headers, Keyword.t) :: {Atom.t, Map.t}
+  def put(url, body, headers \\ [], options \\ []) do
+    url
+    |> HTTPoison.put!(body, headers, options)
+    |> do_response_decode
+    |> do_cast_response
+  end
+
+  @spec post(binary, body, headers, Keyword.t) :: {Atom.t, Map.t}
+  def post(url, body, headers \\ [], options \\ []) do
+    url
+    |> HTTPoison.post!(body, headers, options)
+    |> do_response_decode
+    |> do_cast_response
+  end
+
+  @spec patch(binary, body, headers, Keyword.t) :: {Atom.t, Map.t}
+  def patch(url, body, headers \\ [], options \\ []) do
+    url
+    |> HTTPoison.patch!(body, headers, options)
+    |> do_response_decode
+    |> do_cast_response
+  end
+
+  @spec delete(binary, headers, Keyword.t) :: {Atom.t, Map.t}
+  def delete(url, headers \\ [], options \\ []) do
+    url
+    |> HTTPoison.delete!(headers, options)
+    |> do_response_decode
+    |> do_cast_response
+  end
+
+  @spec get_request_url(binary) :: binary
   def get_request_url(endpoint) do
     @backlog_api_url
     |> String.replace("%{endpoint}", endpoint)
     |> String.replace("%{space_name}", Application.get_env(:backLog_api, :space_name))
     |> String.replace("%{api_key}", Application.get_env(:backLog_api, :api_key))
   end
-
-  @spec do_request(String.t, Atom.t) :: HTTPoison.Response.t
-  defp do_request(url, :get) do
-    HTTPoison.get!(url)
-  end
-
-#  defp do_request(url, :post) do
-#    HTTPoison.post!(url)
-#  end
-
-#  defp do_request(url, :put) do
-#    HTTPoison.put!(url)
-#  end
-
-#  defp do_request(url, :patch) do
-#    HTTPoison.patch!(url)
-#  end
-
-#  defp do_request(url, :delete) do
-#    HTTPoison.delete!(url)
-#  end
 
   @spec do_response_decode(HTTPoison.Response.t) :: Tuple.t
   defp do_response_decode(%HTTPoison.Response{body: body}), do: {Poison.decode!(body)}

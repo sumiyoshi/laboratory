@@ -3,10 +3,6 @@ defmodule BackLogApiTest do
   doctest BackLogApi
 
   test "the truth" do
-
-    BackLogApi.get_request_url("users")
-    |> IO.inspect()
-
     assert 1 + 1 == 2
   end
 end
