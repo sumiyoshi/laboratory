@@ -7,7 +7,7 @@ defmodule FizzBuzz do
   def run(num) when num > 100, do: :ok
 
   def run(num) do
-    do_run(num) |> IO.inspect
+    IO.puts(do_run(num))
     run(num + 1)
   end
 
