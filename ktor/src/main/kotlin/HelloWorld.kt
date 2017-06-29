@@ -9,7 +9,7 @@ fun main(args: Array<String>) {
     embeddedServer(Netty, 8080) {
         routing {
             get("/") {
-                call.respondText("Hello, world!", ContentType.Text.Html)
+                call.respondText("Hello, world!!!!!", ContentType.Text.Html)
             }
         }
     }.start(wait = true)
