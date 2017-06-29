@@ -1,5 +1,3 @@
-package com.example
-
 import org.jetbrains.ktor.netty.*
 import org.jetbrains.ktor.routing.*
 import org.jetbrains.ktor.application.*
