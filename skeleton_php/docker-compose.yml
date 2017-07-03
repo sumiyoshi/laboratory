@@ -1,0 +1,6 @@
+php: &defaults
+  image: php:latest
+  working_dir: /app
+  volumes:
+    - .:/app
+  entrypoint: ["php"]
