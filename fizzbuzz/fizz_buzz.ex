@@ -1,24 +1,14 @@
-# Elixir 1.4.2
-
 defmodule FizzBuzz do
 
-  def run(), do: run(1)
+  @spec get(Integer.t) :: String.t
+  def get(num) when rem(num, 15) == 0, do: "FizzBuzz"
 
-  def run(num) when num > 100, do: :ok
+  def get(num) when rem(num, 3) == 0, do: "Fizz"
 
-  def run(num) do
-    IO.puts(do_run(num))
-    run(num + 1)
-  end
+  def get(num) when rem(num, 5) == 0, do: "Buzz"
 
-  defp do_run(num) when rem(num, 15) == 0, do: "FizzBuzz"
-
-  defp do_run(num) when rem(num, 3) == 0, do: "Fizz"
-
-  defp do_run(num) when rem(num, 5) == 0, do: "Buzz"
-
-  defp do_run(num), do: num
+  def get(num), do: num
 
 end
 
-FizzBuzz.run()
+1..100 |> Enum.each(&(IO.puts FizzBuzz.get &1))
