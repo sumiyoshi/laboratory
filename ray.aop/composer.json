@@ -1,0 +1,14 @@
+{
+  "name": "sumiyoshi/ray.aop",
+  "require-dev": {},
+  "license": "MIT",
+  "require": {
+    "ray/aop": "^2.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "": "src/",
+      "Interceptor\\": "src/Interceptor/"
+    }
+  }
+}
