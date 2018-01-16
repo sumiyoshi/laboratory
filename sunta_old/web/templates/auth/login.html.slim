@@ -1,6 +1,0 @@
-section class="login_content"
-  = form_for @conn, auth_path(@conn, :login), [as: :session], fn f ->
-    h1 Login
-    div = text_input f, :login_id, placeholder: "ID", class: "form-control"
-    div.form-group = password_input f, :password, placeholder: "Password", class: "form-control"
-    div = submit "Log in", class: "btn btn-default submit"
