@@ -3,25 +3,55 @@
 
 ##GET STARTED
 
-Change hostname of databese to postgres-db
+Change hostname of databese to dbname
 
-Dependence Install
-
-```
-docker-compose run web npm install
-docker-compose run web npm run deploy
-docker-compose run web mix deps.get
-```
-
-Create Database
+## Install
 
 ```
-docker-compose run web mix ecto.create 
-```
 
-Starting the server
+docker-compose build
 
-```
 docker-compose up -d
+
+docker-compose exec web mix deps.get
+
+docker-compose exec web mix ecto.create
+
+docker-compose exec web mix ecto.migrate
+
+
+```
+
+
+## Run
+
+```
+
+docker-compose exec web mix phoenix.server
+ ⇒http://localhost:4000/
+
+```
+
+## Command
+
+```
+
+docker-compose stop
+
+docker-compose restart
+
+docker container list -a
+
+docker rm $(docker ps -aq)
+
+```
+
+## Test
+
+```
+
+docker-compose exec web mix test
+
+```
 ```
 

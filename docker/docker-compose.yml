@@ -1,29 +1,38 @@
-postgres-data:
-  image: busybox
-  volumes:
-      - /var/lib/postgresql/data
-  container_name: postgres-datastore
-
-db:
-  image: postgres:latest
-  environment:
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: postgres
-  ports:
-    - 5432:5432
-  container_name: postgres-db
-  volumes_from:
-      - postgres-data
-
-web:
-  build: .
-  command: sh -c "mix phoenix.server"
-  ports:
-    - 4000:4000
-  environment: &ENV
-    VIRTUAL_PORT: 4000
-  container_name: phoenix-web
-  volumes:
-      - ./:/usr/local/src/phoenix/app
-  links:
-    - db:db
+version: '3'
+services:
+  storage:
+    image: busybox
+    volumes:
+      - /var/lib/mysql
+    container_name: app_name-storage
+  mysql:
+    image: mysql:5.6
+    volumes:
+      - storage
+    ports:
+      - "3306:3306"
+    container_name: app_name-db
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+    container_name: app_name-db
+    volumes:
+      - storage
+  web:
+    build: .
+    volumes:
+      - .:/var/opt/app
+    environment:
+      - "TZ=Japan"
+      - "DB_HOST=app_name-db"
+    links:
+      - mysql:mysql
+    ports:
+      - "4000:4000"
+    container_name: app_name-web

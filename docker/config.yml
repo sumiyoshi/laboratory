@@ -1,0 +1,15 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/cci-phoenix
+    docker:
+      - image: elixir:1.5.3
+      - image: mysql:5.6
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+    steps:
+      - checkout
+      - run: mix local.hex --force
+      - run: mix local.rebar
+      - run: mix deps.get
+      - run: DB_HOST=localhost mix test
