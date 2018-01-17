@@ -13,7 +13,6 @@ module.exports = [
         devServer: {
             contentBase: 'public'
         },
-        context: path.join(__dirname, 'src/js'),
         entry: {
             bundle: `${dir}/src/entry.js`
         },
@@ -30,7 +29,7 @@ module.exports = [
             new WebpackBuildNotifierPlugin({
                 title: "Webpack Build"
             }),
-            new ExtractTextPlugin("css/[name].min.css"),
+            new ExtractTextPlugin(`css/[name].min.css`),
             new CopyWebpackPlugin([
                 {from: `${dir}/node_modules/bootstrap/dist/css/bootstrap.min.css`, to: `${output_path}/css/bootstrap.min.css`}
             ])
