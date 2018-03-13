@@ -1,14 +1,19 @@
 const webpack = require("webpack");
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+const MODE = process.env.NODE_ENV;
+const enabledSourceMap = (MODE === 'development');
 
 let dir = __dirname;
-let output_path = `${dir}/public/`;
+let output_path = (MODE === 'development') ? `${dir}/htdocs-dev/` : `${dir}/htdocs/`;
 
 module.exports = {
+    mode: MODE,
     cache: false,
     devServer: {
-        contentBase: 'public'
+        contentBase: 'htdocs-dev'
     },
     entry: {
         bundle: `${dir}/src/entry.js`
@@ -18,15 +23,15 @@ module.exports = {
         filename: "js/[name].min.js"
     },
     plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        }),
         new WebpackBuildNotifierPlugin({
             title: "Webpack Build"
         }),
-        new ExtractTextPlugin("css/[name].min.css")
+        new HtmlWebPackPlugin(
+            {template: "./src/html/index.html", filename: "./index.html"}
+        ),
+        new CopyWebpackPlugin([
+            {from: `${dir}/node_modules/jquery/dist/jquery.min.js`, to: `${output_path}/js/jquery.min.js`}
+        ])
     ],
     resolve: {
         modules: [
@@ -38,6 +43,14 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.html$/,
+                use: [
+                    {
+                        loader: "html-loader"
+                    }
+                ]
+            },
+            {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
@@ -48,11 +61,27 @@ module.exports = {
                 }
             },
             {
-                test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: "css-loader?minimize!sass-loader"
-                })
+                test: /\.scss/,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            url: false,// url()メソッドの取り込みを禁止する
+                            sourceMap: enabledSourceMap,
+                            // 0 => no loaders (default);
+                            // 1 => postcss-loader;
+                            // 2 => postcss-loader, sass-loader
+                            importLoaders: 2
+                        }
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: enabledSourceMap
+                        }
+                    }
+                ]
             }
         ]
     }

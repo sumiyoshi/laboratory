@@ -12,18 +12,22 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.24.1",
-    "css-loader": "^0.28.7",
+    "copy-webpack-plugin": "^4.5.1",
+    "css-loader": "^0.28.10",
     "extract-text-webpack-plugin": "^3.0.2",
-    "node-sass": "^4.6.0",
-    "sass-loader": "^6.0.6",
-    "style-loader": "^0.19.0",
-    "webpack": "^3.8.1",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.0.6",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.20.3",
+    "webpack": "^4.1.1",
     "webpack-build-notifier": "^0.1.17",
-    "webpack-dev-server": "2.7.1"
+    "webpack-cli": "^2.0.11",
+    "webpack-dev-server": "^3.1.1"
   },
   "scripts": {
-    "start": "node_modules/.bin/webpack-dev-server",
-    "b": "node_modules/.bin/webpack --progress --colors"
+    "start": "NODE_ENV=development node_modules/.bin/webpack-dev-server",
+    "b": "NODE_ENV=production node_modules/.bin/webpack --progress --colors"
   },
   "author": "",
   "license": "MIT"
