@@ -28,10 +28,7 @@ module.exports = {
         }),
         new HtmlWebPackPlugin(
             {template: "./src/html/index.html", filename: "./index.html"}
-        ),
-        new CopyWebpackPlugin([
-            {from: `${dir}/node_modules/jquery/dist/jquery.min.js`, to: `${output_path}/js/jquery.min.js`}
-        ])
+        )
     ],
     resolve: {
         modules: [
