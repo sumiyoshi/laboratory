@@ -5,6 +5,14 @@ export default class About extends React.Component {
         super(props);
     }
 
+    setTitle() {
+        document.title = 'About';
+    }
+    
+    componentDidMount() {
+        this.setTitle();
+    }
+
     render() {
         return(
             <div>

@@ -6,7 +6,13 @@ export default class Home extends Component {
         super(props);
     }
 
+    setTitle() {
+        document.title = 'Home';
+    }
+
     componentDidMount() {
+        this.setTitle();
+
         $.ajax({
             url: "http://localhost:8080/",
             dataType: 'json',

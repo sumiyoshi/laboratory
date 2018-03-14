@@ -5,6 +5,14 @@ export default class Friends extends Component {
         super(props);
     }
 
+    setTitle() {
+        document.title = 'Friends';
+    }
+
+    componentDidMount() {
+        this.setTitle();
+    }
+
     render() {
         return(
             <div>
