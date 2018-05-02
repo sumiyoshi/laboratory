@@ -1,0 +1,22 @@
+version: '3'
+services:
+  web:
+      build:
+        context: .
+        dockerfile: ./containers/nginx/Dockerfile
+      environment:
+        - VIRTUAL_HOST=example.com
+        - CERT_NAME=default
+      ports:
+          - "8080:80"
+      depends_on:
+          - php
+  php:
+      build:
+        context: .
+        dockerfile: ./containers/php/Dockerfile
+
+networks:
+  default:
+    external:
+      name: example_projects_link

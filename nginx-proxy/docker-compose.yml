@@ -1,0 +1,20 @@
+version: '3.0'
+
+services:
+
+  # http proxy
+  proxy:
+    image: jwilder/nginx-proxy
+    container_name: example-nginx-proxy
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./certs:/etc/nginx/certs
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    restart: always
+
+networks:
+  default:
+    external:
+      name: example_projects_link
